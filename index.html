@@ -1,54 +1,58 @@
-function Automobile(make, model, year, fuelType) {
-  this.make = make;
+function Vehicle(brand, model, speed, fuelType) {
+  this.brand = brand;
   this.model = model;
-  this.year = year;
+  this.speed = speed || 0;
   this.fuelType = fuelType;
 }
 
-Automobile.prototype.startEngine = function () {
-  console.log("Engine started.");
+Vehicle.prototype.accelerate = function() {
+  this.speed += 10;
+  console.log(`${this.brand} ${this.model} is accelerating. Current speed: ${this.speed} km/h`);
 };
 
-Automobile.prototype.stopEngine = function () {
-  console.log("Engine stopped.");
+Vehicle.prototype.brake = function() {
+  this.speed -= 5;
+  console.log(`${this.brand} ${this.model} is braking. Current speed: ${this.speed} km/h`);
 };
 
-Automobile.prototype.drive = function () {
-  console.log("Driving.");
+Vehicle.prototype.refuel = function() {
+  console.log(`${this.brand} ${this.model} is refueling.`);
 };
 
-function Car(make, model, year, fuelType, numDoors) {
-  Automobile.call(this, make, model, year, fuelType);
-  this.numDoors = numDoors;
+function Car(brand, model, speed, fuelType, numberOfWheels) {
+  Vehicle.call(this, brand, model, speed, fuelType);
+  this.numberOfWheels = numberOfWheels;
 }
 
-Car.prototype = Object.create(Automobile.prototype);
+Car.prototype = Object.create(Vehicle.prototype);
 Car.prototype.constructor = Car;
 
-Car.prototype.honk = function () {
-  console.log("Honk honk!");
+Car.prototype.honk = function() {
+  console.log(`${this.brand} ${this.model} is honking. Honk honk!`);
 };
 
-function Truck(make, model, year, fuelType, payloadCapacity) {
-  Automobile.call(this, make, model, year, fuelType);
-  this.payloadCapacity = payloadCapacity;
+function Airplane(brand, model, speed, fuelType, numberOfEngines, hasLandingGear) {
+  Vehicle.call(this, brand, model, speed, fuelType);
+  this.numberOfEngines = numberOfEngines;
+  this.hasLandingGear = hasLandingGear;
 }
 
-Truck.prototype = Object.create(Automobile.prototype);
-Truck.prototype.constructor = Truck;
+Airplane.prototype = Object.create(Vehicle.prototype);
+Airplane.prototype.constructor = Airplane;
 
-Truck.prototype.loadCargo = function () {
-  console.log("Cargo loaded.");
+Airplane.prototype.takeOff = function() {
+  console.log(`${this.brand} ${this.model} is taking off. Ready for departure!`);
 };
 
-const mycCar = new Car("Toyota", "Camry", 2022, "Gasoline", 4);
-myCar.startEngine();
-myCar.drive();
-myCar.honk();
-myCar.stopEngine();
+const myCar = new Car("Toyota", "Camry", 0, "Gasoline", 4);
+const myAirplane = new Airplane("Boeing", "747", 0, "Jet Fuel", 4, true);
 
-const myTruck = new Truck("Ford", "F-150", 2022, "Diesel", 2000);
-myTruck.startEngine();
-myTtruck.drive();
-myTruck.loadCargo();
-myTruck.stopEngine();
+myCar.accelerate();
+myCar.brake();
+myCar.refuel();
+myCar.honk();
+
+myAirplane.accelerate();
+myAirplane.brake();
+myAirplane.refuel();
+myAirplane.takeOff();
